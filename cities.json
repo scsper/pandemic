@@ -1,0 +1,178 @@
+{
+    "San Francisco": {
+        "neighbors": [
+            "Tokyo",
+            "Manila",
+            "Chicago",
+            "Los Angeles"
+        ],
+        "location": {
+            "x": 1,
+            "y": 7
+        }
+    },
+
+    "Los Angeles": {
+        "neighbors": [
+            "San Francisco",
+            "Sydney",
+            "Chicago",
+            "Mexico City"
+        ],
+        "location": {
+            "x": 2,
+            "y": 10
+        }
+    },
+
+    "Chicago": {
+        "neighbors": [
+            "San Francisco",
+            "Los Angeles",
+            "Atlanta",
+            "Mexico City",
+            "Montreal"
+        ],
+        "location": {
+            "x": 6,
+            "y": 6
+        }
+    },
+
+    "Mexico City": {
+        "neighbors": [
+            "Los Angeles",
+            "Chicago",
+            "Miami",
+            "Bogota",
+            "Lima"
+        ],
+        "location": {
+            "x": 6,
+            "y": 12
+        }
+    },
+
+    "Atlanta": {
+        "neighbors": [
+            "Chicago",
+            "Washington",
+            "Miami"
+        ],
+        "location": {
+            "x": 8,
+            "y": 9
+        }
+    },
+
+    "Miami": {
+        "neighbors": [
+            "Washington",
+            "Atlanta",
+            "Mexico City",
+            "Bogota"
+        ],
+        "location": {
+            "x": 10,
+            "y": 11
+        }
+    },
+
+    "Montreal": {
+        "neighbors": [
+            "Chicago",
+            "Washington",
+            "New York"
+        ],
+        "location": {
+            "x": 10,
+            "y": 6
+        }
+    },
+
+    "Washington": {
+        "neighbors": [
+            "New York",
+            "Montreal",
+            "Atlanta",
+            "Miami"
+        ],
+        "location": {
+            "x": 12,
+            "y": 9
+        }
+    },
+
+    "New York": {
+        "neighbors": [
+            "Washington",
+            "Montreal",
+            "London",
+            "Madrid"
+        ],
+        "location": {
+            "x": 13,
+            "y": 6
+        }
+    },
+
+    "Bogota": {
+        "neighbors": [
+            "Miami",
+            "Mexico City",
+            "Lima",
+            "Buenos Aires",
+            "Sao Paulo"
+        ],
+        "location": {
+            "x": 10,
+            "y": 15
+        }
+    },
+
+    "Lima": {
+        "neighbors": [
+            "Bogota",
+            "Mexico City",
+            "Santiago"
+        ],
+        "location": {
+            "x": 9,
+            "y": 19
+        }
+    },
+
+    "Santiago": {
+        "neighbors": [
+            "Lima"
+        ],
+        "location": {
+            "x": 9,
+            "y": 23
+        }
+    },
+
+    "Buenos Aires": {
+        "neighbors": [
+            "Sao Paulo",
+            "Bogota"
+        ],
+        "location": {
+            "x": 13,
+            "y": 22
+        }
+    },
+
+    "Sao Paulo": {
+        "neighbors": [
+            "Buenos Aires",
+            "Bogota",
+            "Madrid",
+            "Lagos"
+        ],
+        "location": {
+            "x": 15,
+            "y": 19
+        }
+    }
+}
