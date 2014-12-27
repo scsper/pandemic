@@ -83,7 +83,7 @@ City = React.createClass({displayName: 'City',
 
         return (
             React.DOM.div({style: locationStyle}, 
-                this.props.name, 
+                React.DOM.span({className: "cityName"}, this.props.name), 
                 this.drawLines()
             )
         );

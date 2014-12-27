@@ -8,7 +8,6 @@ Line = React.createClass({
      * taken from madox2 on stack overflow: http://stackoverflow.com/questions/4270485/drawing-lines-on-html-page
      */
     getLineEndpoints: function(x1, x2, y1, y2) {
-        debugger;
         if(y1 < y2) {
             var pom = y1;
             y1 = y2;
@@ -36,8 +35,6 @@ Line = React.createClass({
         var cosb = (b*b - a*a - c*c) / (2*a*c);
         var rad = Math.acos(cosb);
         var deg = (rad*180)/Math.PI;
-
-        debugger;
 
         return {
             width: width,
