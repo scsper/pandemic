@@ -2,6 +2,7 @@
 
 var React = require('react'),
     CityStore = require('../stores/city.js'),
+    InfectionStore = require('../stores/infection.js'),
     Map = require('./cities/map.jsx'),
     bean = require('bean'),
     App;

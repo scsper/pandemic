@@ -1,4 +1,5 @@
 var Dispatcher = require('../dispatcher/dispatcher.js'),
+    _ = require('lodash'),
     cities = require('../data/cities.js'),
     bean = require('bean');
 
@@ -7,8 +8,22 @@ var InfectionStore = {
     infectionDiscardPile: [],
     infectionRate: 0,
 
-    populateInfectionDeck: function() {
+    _populateInfectionDeck: function() {
+        var cards = _.keys(cities),
+            deck = [],
+            length = cards.length,
+            randomIdx;
 
+        for (var i = 0; i < length; i++) {
+            randomIdx = Math.floor((Math.random() * cards.length - 1) + 1);
+            deck.push(cards.splice(randomIdx, 1)[0]);
+        }
+
+        return deck;
+    },
+
+    setInfectionDeck: function() {
+        this.infectionDeck = this._populateInfectionDeck();
     },
 
     register: function() {
@@ -55,6 +70,7 @@ var InfectionStore = {
     }
 };
 
+InfectionStore.setInfectionDeck();
 InfectionStore.register();
 
 module.exports = InfectionStore;
