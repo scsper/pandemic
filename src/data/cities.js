@@ -24,7 +24,7 @@ var cities = {
             "x": 2,
             "y": 10
         },
-        "color": "yellow"
+        "color": "green"
     },
 
     "Chicago": {
@@ -54,7 +54,7 @@ var cities = {
             "x": 6,
             "y": 12
         },
-        "color": "yellow"
+        "color": "green"
     },
 
     "Atlanta": {
@@ -81,7 +81,7 @@ var cities = {
             "x": 10,
             "y": 11
         },
-        "color": "yellow"
+        "color": "green"
     },
 
     "Montreal": {
@@ -137,7 +137,7 @@ var cities = {
             "x": 10,
             "y": 15
         },
-        "color": "yellow"
+        "color": "green"
     },
 
     "Lima": {
@@ -150,7 +150,7 @@ var cities = {
             "x": 9,
             "y": 19
         },
-        "color": "yellow"
+        "color": "green"
     },
 
     "Santiago": {
@@ -161,7 +161,7 @@ var cities = {
             "x": 9,
             "y": 23
         },
-        "color": "yellow"
+        "color": "green"
     },
 
     "Buenos Aires": {
@@ -173,7 +173,7 @@ var cities = {
             "x": 13,
             "y": 22
         },
-        "color": "yellow"
+        "color": "green"
     },
 
     "Sao Paulo": {
@@ -187,7 +187,7 @@ var cities = {
             "x": 15,
             "y": 19
         },
-        "color": "yellow"
+        "color": "green"
     },
 
     "Madrid": {
@@ -284,7 +284,7 @@ var cities = {
             "x": 23,
             "y": 14
         },
-        "color": "yellow"
+        "color": "green"
     },
 
     "Kinshasa": {
@@ -297,7 +297,7 @@ var cities = {
             "x": 25,
             "y": 17
         },
-        "color": "yellow"
+        "color": "green"
     },
 
     "Johannesburg": {
@@ -309,7 +309,7 @@ var cities = {
             "x": 28,
             "y": 20
         },
-        "color": "yellow"
+        "color": "green"
     },
 
     "Khartoum": {
@@ -323,7 +323,7 @@ var cities = {
             "x": 28,
             "y": 13
         },
-        "color": "yellow"
+        "color": "green"
     },
 
     "Algiers": {
@@ -666,3 +666,5 @@ var cities = {
         "color": "red"
     }
 };
+
+module.exports = cities;

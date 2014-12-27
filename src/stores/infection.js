@@ -1,17 +1,16 @@
-// var CityConstants = require('../constants/city_constants.js'),
 var Dispatcher = require('../dispatcher/dispatcher.js'),
     cities = require('../data/cities.js'),
     bean = require('bean');
 
-var CityStore = {
-    cities: cities,
-    getCities: function() {
-        return this.cities;
+var InfectionStore = {
+    infectionDeck: [],
+    infectionDiscardPile: [],
+    infectionRate: 0,
+
+    populateInfectionDeck: function() {
+
     },
 
-    getLocation: function(city) {
-        return this.cities[city].location;
-    },
     register: function() {
         var _this = this;
 
@@ -56,6 +55,6 @@ var CityStore = {
     }
 };
 
-CityStore.register();
+InfectionStore.register();
 
-module.exports = CityStore;
+module.exports = InfectionStore;
