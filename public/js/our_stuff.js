@@ -3,6 +3,7 @@
 
 var React = require('react'),
     CityStore = require('../stores/city.js'),
+    InfectionStore = require('../stores/infection.js'),
     Map = require('./cities/map.jsx'),
     bean = require('bean'),
     App;
@@ -37,7 +38,7 @@ App = React.createClass({displayName: 'App',
 
 module.exports = App;
 
-},{"../stores/city.js":8,"./cities/map.jsx":4,"bean":"bean","react":"react"}],2:[function(require,module,exports){
+},{"../stores/city.js":8,"../stores/infection.js":9,"./cities/map.jsx":4,"bean":"bean","react":"react"}],2:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react'),
@@ -660,4 +661,47 @@ module.exports = CityStore;
 
 
 //# sourceURL=/Users/ssperlin/Documents/coding/personal/pandemic/src/stores/city.js
-},{"../data/cities.js":5,"../dispatcher/dispatcher.js":6,"bean":"bean"}]},{},[7]);
+},{"../data/cities.js":5,"../dispatcher/dispatcher.js":6,"bean":"bean"}],9:[function(require,module,exports){
+"use strict";
+var Dispatcher = require('../dispatcher/dispatcher.js'),
+    _ = require('lodash'),
+    cities = require('../data/cities.js'),
+    bean = require('bean');
+var InfectionStore = {
+  infectionDeck: [],
+  infectionDiscardPile: [],
+  infectionRate: 0,
+  _populateInfectionDeck: function() {
+    var cards = _.keys(cities),
+        deck = [],
+        length = cards.length,
+        randomIdx;
+    for (var i = 0; i < length; i++) {
+      randomIdx = Math.floor((Math.random() * cards.length - 1) + 1);
+      deck.push(cards.splice(randomIdx, 1)[0]);
+    }
+    return deck;
+  },
+  setInfectionDeck: function() {
+    this.infectionDeck = this._populateInfectionDeck();
+  },
+  register: function() {
+    var _this = this;
+    Dispatcher.register(function(payload) {
+      var action = payload.action;
+      switch (action.actionType) {
+        default:
+          return true;
+      }
+      bean.fire(_this, 'changed');
+      return true;
+    });
+  }
+};
+InfectionStore.setInfectionDeck();
+InfectionStore.register();
+module.exports = InfectionStore;
+
+
+//# sourceURL=/Users/ssperlin/Documents/coding/personal/pandemic/src/stores/infection.js
+},{"../data/cities.js":5,"../dispatcher/dispatcher.js":6,"bean":"bean","lodash":"lodash"}]},{},[7]);
