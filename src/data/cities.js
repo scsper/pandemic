@@ -1,4 +1,4 @@
-{
+var cities = {
     "San Francisco": {
         "neighbors": [
             "Tokyo",
@@ -665,4 +665,4 @@
         },
         "color": "red"
     }
-}
+};
