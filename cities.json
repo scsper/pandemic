@@ -9,7 +9,8 @@
         "location": {
             "x": 1,
             "y": 7
-        }
+        },
+        "color": "blue"
     },
 
     "Los Angeles": {
@@ -22,7 +23,8 @@
         "location": {
             "x": 2,
             "y": 10
-        }
+        },
+        "color": "yellow"
     },
 
     "Chicago": {
@@ -36,7 +38,8 @@
         "location": {
             "x": 6,
             "y": 6
-        }
+        },
+        "color": "blue"
     },
 
     "Mexico City": {
@@ -50,7 +53,8 @@
         "location": {
             "x": 6,
             "y": 12
-        }
+        },
+        "color": "yellow"
     },
 
     "Atlanta": {
@@ -62,7 +66,8 @@
         "location": {
             "x": 8,
             "y": 9
-        }
+        },
+        "color": "blue"
     },
 
     "Miami": {
@@ -75,7 +80,8 @@
         "location": {
             "x": 10,
             "y": 11
-        }
+        },
+        "color": "yellow"
     },
 
     "Montreal": {
@@ -87,7 +93,8 @@
         "location": {
             "x": 10,
             "y": 6
-        }
+        },
+        "color": "blue"
     },
 
     "Washington": {
@@ -100,7 +107,8 @@
         "location": {
             "x": 12,
             "y": 9
-        }
+        },
+        "color": "blue"
     },
 
     "New York": {
@@ -113,7 +121,8 @@
         "location": {
             "x": 13,
             "y": 6
-        }
+        },
+        "color": "blue"
     },
 
     "Bogota": {
@@ -127,7 +136,8 @@
         "location": {
             "x": 10,
             "y": 15
-        }
+        },
+        "color": "yellow"
     },
 
     "Lima": {
@@ -139,7 +149,8 @@
         "location": {
             "x": 9,
             "y": 19
-        }
+        },
+        "color": "yellow"
     },
 
     "Santiago": {
@@ -149,7 +160,8 @@
         "location": {
             "x": 9,
             "y": 23
-        }
+        },
+        "color": "yellow"
     },
 
     "Buenos Aires": {
@@ -160,7 +172,8 @@
         "location": {
             "x": 13,
             "y": 22
-        }
+        },
+        "color": "yellow"
     },
 
     "Sao Paulo": {
@@ -173,6 +186,91 @@
         "location": {
             "x": 15,
             "y": 19
-        }
+        },
+        "color": "yellow"
+    },
+
+    "Madrid": {
+        "neighbors": [
+            "New York",
+            "London",
+            "Paris",
+            "Algiers",
+            "Sao Paulo"
+        ],
+        "location": {
+            "x": 20,
+            "y": 8
+        },
+        "color": "blue"
+    },
+
+    "London": {
+        "neighbors": [
+            "Essen",
+            "Paris",
+            "Madrid",
+            "New York"
+        ],
+        "location": {
+            "x": 21,
+            "y": 4
+        },
+        "color": "blue"
+    },
+
+    "Paris": {
+        "neighbors": [
+            "Essen",
+            "Milan",
+            "Algiers",
+            "Madrid",
+            "London"
+        ],
+        "location": {
+            "x": 24,
+            "y": 6
+        },
+        "color": "blue"
+    },
+
+    "Essen": {
+        "neighbors": [
+            "London",
+            "Paris",
+            "Milan",
+            "St. Petersburg"
+        ],
+        "location": {
+            "x": 25,
+            "y": 3
+        },
+        "color": "blue"
+    },
+
+    "Milan": {
+        "neighbors": [
+            "Essen",
+            "Paris",
+            "Istanbul"
+        ],
+        "location": {
+            "x": 27,
+            "y": 5
+        },
+        "color": "blue"
+    },
+
+    "St. Petersburg": {
+        "neighbors": [
+            "Essen",
+            "Moscow",
+            "Istanbul"
+        ],
+        "location": {
+            "x": 30,
+            "y": 2
+        },
+        "color": "blue"
     }
 }
