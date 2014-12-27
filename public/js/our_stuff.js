@@ -9,7 +9,6 @@ var React = require('react'),
 
 App = React.createClass({displayName: 'App',
     getInitialState: function() {
-        debugger;
         return {
             cities: CityStore.getCities()
         };
@@ -38,14 +37,35 @@ App = React.createClass({displayName: 'App',
 
 module.exports = App;
 
-},{"../stores/city.js":6,"./cities/map.jsx":3,"bean":"bean","react":"react"}],2:[function(require,module,exports){
+},{"../stores/city.js":7,"./cities/map.jsx":4,"bean":"bean","react":"react"}],2:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react'),
     GRID_SIZE = 25,
+    _ = require('lodash'),
+    CityStore = require('../../stores/city.js'),
+    Line = require('./line.jsx'),
     City;
 
 City = React.createClass({displayName: 'City',
+    drawLines: function() {
+        var neighbors = this.props.neighbors,
+            lineComponents = [],
+            cityLocation = this.props.location,
+            name = this.props.name;
+
+        _.forEach(neighbors, function(neighbor) {
+            var neighborLocation = CityStore.getLocation(neighbor);
+
+            lineComponents.push(Line({
+                x1: neighborLocation.x * GRID_SIZE, x2: cityLocation.x * GRID_SIZE, 
+                y1: neighborLocation.y * GRID_SIZE, y2: cityLocation.y * GRID_SIZE}
+            ));
+        });
+
+        return lineComponents;
+    },
+
     render: function() {
         var location = this.props.location,
             x = location.x * GRID_SIZE,
@@ -63,7 +83,8 @@ City = React.createClass({displayName: 'City',
 
         return (
             React.DOM.div({style: locationStyle}, 
-                this.props.name
+                this.props.name, 
+                this.drawLines()
             )
         );
     }
@@ -71,7 +92,78 @@ City = React.createClass({displayName: 'City',
 
 module.exports = City;
 
-},{"react":"react"}],3:[function(require,module,exports){
+},{"../../stores/city.js":7,"./line.jsx":3,"lodash":"lodash","react":"react"}],3:[function(require,module,exports){
+/** @jsx React.DOM */
+
+var React = require('react'),
+    Line;
+
+Line = React.createClass({displayName: 'Line',
+    /**
+     * taken from madox2 on stack overflow: http://stackoverflow.com/questions/4270485/drawing-lines-on-html-page
+     */
+    getLineEndpoints: function(x1, x2, y1, y2) {
+        debugger;
+        if(y1 < y2) {
+            var pom = y1;
+            y1 = y2;
+            y2 = pom;
+            pom = x1;
+            x1 = x2;
+            x2 = pom;
+        }
+
+        var a = Math.abs(x1-x2);
+        var b = Math.abs(y1-y2);
+        var c;
+        var sx = (x1+x2)/2;
+        var sy = (y1+y2)/2;
+        var width = Math.sqrt(a*a + b*b );
+        var x = sx - width/2;
+        var y = sy;
+
+        a = width / 2;
+
+        c = Math.abs(sx-x);
+
+        b = Math.sqrt(Math.abs(x1-x)*Math.abs(x1-x)+Math.abs(y1-y)*Math.abs(y1-y));
+
+        var cosb = (b*b - a*a - c*c) / (2*a*c);
+        var rad = Math.acos(cosb);
+        var deg = (rad*180)/Math.PI;
+
+        debugger;
+
+        return {
+            width: width,
+            deg: deg,
+            x: x,
+            y: y
+        };
+    },
+
+    render: function() {
+        var transformObj = this.getLineEndpoints(this.props.x1, this.props.x2, this.props.y1, this.props.y2),
+            style = {
+                border: '1px solid black',
+                width: transformObj.width,
+                height: 0,
+                WebkitTransform: 'rotate(' + transformObj.deg + 'deg)',
+                MozTransform: 'rotate(' + transformObj.deg + 'deg)',
+                position: 'fixed',
+                top: transformObj.y + 'px',
+                left: transformObj.x + 'px'
+            };
+
+        return (
+            React.DOM.div({style: style})
+        );
+    }
+});
+
+module.exports = Line;
+
+},{"react":"react"}],4:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react'),
@@ -89,7 +181,12 @@ Map = React.createClass({displayName: 'Map',
         for (cityName in cities) {
             if (_.has(cities, cityName)) {
                 city = cities[cityName];
-                cityComponents.push(City({color: city.color, location: city.location, name: cityName}));
+                cityComponents.push(City({
+                    neighbors: city.neighbors, 
+                    color: city.color, 
+                    location: city.location, 
+                    name: cityName}
+                ));
             }
         }
 
@@ -103,7 +200,7 @@ Map = React.createClass({displayName: 'Map',
 
 module.exports = Map;
 
-},{"./city.jsx":2,"lodash":"lodash","react":"react"}],4:[function(require,module,exports){
+},{"./city.jsx":2,"lodash":"lodash","react":"react"}],5:[function(require,module,exports){
 "use strict";
 module.exports = (function() {
   var _callbacks = [];
@@ -133,7 +230,7 @@ module.exports = (function() {
 
 
 //# sourceURL=/Users/ssperlin/Documents/coding/personal/pandemic/src/dispatcher/dispatcher.js
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 "use strict";
 var React = require('react'),
     App = require('./components/app.jsx');
@@ -143,7 +240,7 @@ window.onload = (function() {
 
 
 //# sourceURL=/Users/ssperlin/Documents/coding/personal/pandemic/src/index.js
-},{"./components/app.jsx":1,"react":"react"}],6:[function(require,module,exports){
+},{"./components/app.jsx":1,"react":"react"}],7:[function(require,module,exports){
 "use strict";
 var Dispatcher = require('../dispatcher/dispatcher.js'),
     bean = require('bean');
@@ -537,6 +634,9 @@ var CityStore = {
   getCities: function() {
     return this.cities;
   },
+  getLocation: function(city) {
+    return this.cities[city].location;
+  },
   register: function() {
     var _this = this;
     Dispatcher.register(function(payload) {
@@ -555,4 +655,4 @@ module.exports = CityStore;
 
 
 //# sourceURL=/Users/ssperlin/Documents/coding/personal/pandemic/src/stores/city.js
-},{"../dispatcher/dispatcher.js":4,"bean":"bean"}]},{},[5]);
+},{"../dispatcher/dispatcher.js":5,"bean":"bean"}]},{},[6]);

@@ -8,7 +8,6 @@ var React = require('react'),
 
 App = React.createClass({
     getInitialState: function() {
-        debugger;
         return {
             cities: CityStore.getCities()
         };

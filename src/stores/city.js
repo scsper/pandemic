@@ -674,6 +674,10 @@ var CityStore = {
     getCities: function() {
         return this.cities;
     },
+
+    getLocation: function(city) {
+        return this.cities[city].location;
+    },
     register: function() {
         var _this = this;
 

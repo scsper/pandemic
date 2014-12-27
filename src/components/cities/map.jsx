@@ -15,7 +15,12 @@ Map = React.createClass({
         for (cityName in cities) {
             if (_.has(cities, cityName)) {
                 city = cities[cityName];
-                cityComponents.push(<City color={city.color} location={city.location} name={cityName} />);
+                cityComponents.push(<City
+                    neighbors={city.neighbors}
+                    color={city.color}
+                    location={city.location}
+                    name={cityName}
+                />);
             }
         }
 
