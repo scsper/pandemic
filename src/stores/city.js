@@ -1,10 +1,18 @@
-// var CityConstants = require('../constants/city_constants.js'),
 var Dispatcher = require('../dispatcher/dispatcher.js'),
+    InfectionConstants = require('../constants/infection.js'),
     cities = require('../data/cities.js'),
+    _ = require('lodash'),
     bean = require('bean');
 
 var CityStore = {
     cities: cities,
+
+    initializeCities: function() {
+        _.forEach(_.values(this.cities), function(city) {
+            city.diseaseCount = 0;
+        });
+    },
+
     getCities: function() {
         return this.cities;
     },
@@ -12,6 +20,7 @@ var CityStore = {
     getLocation: function(city) {
         return this.cities[city].location;
     },
+
     register: function() {
         var _this = this;
 
@@ -20,26 +29,12 @@ var CityStore = {
             var action = payload.action;
 
             switch (action.actionType) {
-                // case CityConstants.INITIALIZE:
-                //     var item, questions;
+                case InfectionConstants.DRAW:
+                    var city = action.city;
 
-                //     item = _.find(action.lesson.items, function(item) {
-                //         return item.type === 'quiz';
-                //     });
-                //     questions = item.quiz.questions;
-
-                //     _this.id = item.id;
-
-                //     _this.questions = questions.map(function(question) {
-                //         return {
-                //             answers: question.answers,
-                //             correctAnswer: question.correct - 1,
-                //             question: question.question,
-                //             topic: question.topic,
-                //             state: QuestionState.NOT_ANSWERED
-                //         };
-                //     });
-                //     break;
+                    // multiple disease cubes may be added when setting the initial state or handling an epidemic
+                    _this.cities[city].diseaseCount += action.diseaseCount || 1;
+                    break;
 
                 default:
                     return true;
@@ -56,6 +51,7 @@ var CityStore = {
     }
 };
 
+CityStore.initializeCities();
 CityStore.register();
 
 module.exports = CityStore;

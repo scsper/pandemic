@@ -24,7 +24,7 @@ App = React.createClass({
 
     handleChange: function() {
         this.setState({
-            cities: this.CityStore.getCities()
+            cities: CityStore.getCities()
         });
     },
 

@@ -26,6 +26,24 @@ City = React.createClass({
         return lineComponents;
     },
 
+    drawCubes: function() {
+        var diseaseCount = this.props.diseaseCount,
+            diseaseComponents = [],
+            diseaseStyle = {
+                height: '5px',
+                width: '5px',
+                backgroundColor: this.props.color,
+                display: 'inline-block'
+            };
+
+        for (var i = 0; i < diseaseCount; i++) {
+            debugger;
+            diseaseComponents.push(<div style={diseaseStyle} />);
+        }
+
+        return diseaseComponents;
+    },
+
     render: function() {
         var location = this.props.location,
             x = location.x * GRID_SIZE,
@@ -45,6 +63,7 @@ City = React.createClass({
             <div style={locationStyle}>
                 <span>{this.props.name}</span>
                 {this.drawLines()}
+                {this.drawCubes()}
             </div>
         );
     }

@@ -1,5 +1,5 @@
 var _ = require('lodash'),
-    LessonConstants = require('../constants/game.js'),
+    GameConstants = require('../constants/game.js'),
     Dispatcher = require('../dispatcher/dispatcher.js');
 
 module.exports = {

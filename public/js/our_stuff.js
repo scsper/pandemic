@@ -1,4 +1,40 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+"use strict";
+var _ = require('lodash'),
+    InfectionConstants = require('../constants/infection.js'),
+    Dispatcher = require('../dispatcher/dispatcher.js');
+module.exports = {draw: function(city, diseaseCount) {
+    Dispatcher.handleAction({
+      actionType: InfectionConstants.DRAW,
+      city: city,
+      diseaseCount: diseaseCount
+    });
+  }};
+
+
+//# sourceURL=/Users/ssperlin/Documents/coding/personal/pandemic/src/actions/infection.js
+},{"../constants/infection.js":8,"../dispatcher/dispatcher.js":10,"lodash":"lodash"}],2:[function(require,module,exports){
+"use strict";
+var GameStore = require('../stores/game.js'),
+    InfectionStore = require('../stores/infection.js'),
+    InfectionActions = require('../actions/infection.js');
+module.exports = {start: function() {
+    var card = InfectionStore.getTopCard(),
+        i,
+        CARDS_TO_DRAW = 3,
+        cubesToPlace = 3;
+    while (cubesToPlace > 0) {
+      for (i = 0; i < CARDS_TO_DRAW; i++) {
+        InfectionActions.draw(card, cubesToPlace);
+        card = InfectionStore.getTopCard();
+      }
+      cubesToPlace--;
+    }
+  }};
+
+
+//# sourceURL=/Users/ssperlin/Documents/coding/personal/pandemic/src/actions/setup.js
+},{"../actions/infection.js":1,"../stores/game.js":13,"../stores/infection.js":14}],3:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react'),
@@ -25,7 +61,7 @@ App = React.createClass({displayName: 'App',
 
     handleChange: function() {
         this.setState({
-            cities: this.CityStore.getCities()
+            cities: CityStore.getCities()
         });
     },
 
@@ -38,7 +74,7 @@ App = React.createClass({displayName: 'App',
 
 module.exports = App;
 
-},{"../stores/city.js":8,"../stores/infection.js":9,"./cities/map.jsx":4,"bean":"bean","react":"react"}],2:[function(require,module,exports){
+},{"../stores/city.js":12,"../stores/infection.js":14,"./cities/map.jsx":6,"bean":"bean","react":"react"}],4:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react'),
@@ -67,6 +103,24 @@ City = React.createClass({displayName: 'City',
         return lineComponents;
     },
 
+    drawCubes: function() {
+        var diseaseCount = this.props.diseaseCount,
+            diseaseComponents = [],
+            diseaseStyle = {
+                height: '5px',
+                width: '5px',
+                backgroundColor: this.props.color,
+                display: 'inline-block'
+            };
+
+        for (var i = 0; i < diseaseCount; i++) {
+            debugger;
+            diseaseComponents.push(React.DOM.div({style: diseaseStyle}));
+        }
+
+        return diseaseComponents;
+    },
+
     render: function() {
         var location = this.props.location,
             x = location.x * GRID_SIZE,
@@ -85,7 +139,8 @@ City = React.createClass({displayName: 'City',
         return (
             React.DOM.div({style: locationStyle}, 
                 React.DOM.span(null, this.props.name), 
-                this.drawLines()
+                this.drawLines(), 
+                this.drawCubes()
             )
         );
     }
@@ -93,7 +148,7 @@ City = React.createClass({displayName: 'City',
 
 module.exports = City;
 
-},{"../../stores/city.js":8,"./line.jsx":3,"lodash":"lodash","react":"react"}],3:[function(require,module,exports){
+},{"../../stores/city.js":12,"./line.jsx":5,"lodash":"lodash","react":"react"}],5:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react'),
@@ -161,7 +216,7 @@ Line = React.createClass({displayName: 'Line',
 
 module.exports = Line;
 
-},{"react":"react"}],4:[function(require,module,exports){
+},{"react":"react"}],6:[function(require,module,exports){
 /** @jsx React.DOM */
 
 var React = require('react'),
@@ -179,11 +234,13 @@ Map = React.createClass({displayName: 'Map',
         for (cityName in cities) {
             if (_.has(cities, cityName)) {
                 city = cities[cityName];
+
                 cityComponents.push(City({
                     neighbors: city.neighbors, 
                     color: city.color, 
                     location: city.location, 
-                    name: cityName}
+                    name: cityName, 
+                    diseaseCount: city.diseaseCount}
                 ));
             }
         }
@@ -198,7 +255,27 @@ Map = React.createClass({displayName: 'Map',
 
 module.exports = Map;
 
-},{"./city.jsx":2,"lodash":"lodash","react":"react"}],5:[function(require,module,exports){
+},{"./city.jsx":4,"lodash":"lodash","react":"react"}],7:[function(require,module,exports){
+"use strict";
+var _ = require('lodash');
+var GameConstants = {
+  INITIAL: _.uniq(),
+  ACTIONS: _.uniq(),
+  DRAW_PLAYER_CARDS: _.uniq(),
+  INFECT_CITIES: _.uniq(),
+  START: _.uniq()
+};
+
+
+//# sourceURL=/Users/ssperlin/Documents/coding/personal/pandemic/src/constants/game.js
+},{"lodash":"lodash"}],8:[function(require,module,exports){
+"use strict";
+var _ = require('lodash');
+module.exports = {DRAW: _.uniq()};
+
+
+//# sourceURL=/Users/ssperlin/Documents/coding/personal/pandemic/src/constants/infection.js
+},{"lodash":"lodash"}],9:[function(require,module,exports){
 "use strict";
 var cities = {
   "San Francisco": {
@@ -590,7 +667,7 @@ module.exports = cities;
 
 
 //# sourceURL=/Users/ssperlin/Documents/coding/personal/pandemic/src/data/cities.js
-},{}],6:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 "use strict";
 module.exports = (function() {
   var _callbacks = [];
@@ -599,50 +676,84 @@ module.exports = (function() {
       _callbacks.push(callback);
     },
     dispatch: function(payload) {
+      console.log(payload);
       _callbacks.forEach(function(callback) {
         callback(payload);
       });
     },
-    handleViewAction: function(action) {
-      this.dispatch({
-        source: 'VIEW_ACTION',
-        action: action
-      });
-    },
-    handleServerAction: function(action) {
-      this.dispatch({
-        source: 'SERVER_ACTION',
-        action: action
-      });
+    handleAction: function(action) {
+      this.dispatch({action: action});
     }
   };
 })();
 
 
 //# sourceURL=/Users/ssperlin/Documents/coding/personal/pandemic/src/dispatcher/dispatcher.js
-},{}],7:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 "use strict";
 var React = require('react'),
+    SetupActions = require('./actions/setup.js'),
     App = require('./components/app.jsx');
 window.onload = (function() {
   React.renderComponent(App(null), document.getElementById('container'));
+  SetupActions.start();
 });
 
 
 //# sourceURL=/Users/ssperlin/Documents/coding/personal/pandemic/src/index.js
-},{"./components/app.jsx":1,"react":"react"}],8:[function(require,module,exports){
+},{"./actions/setup.js":2,"./components/app.jsx":3,"react":"react"}],12:[function(require,module,exports){
 "use strict";
 var Dispatcher = require('../dispatcher/dispatcher.js'),
+    InfectionConstants = require('../constants/infection.js'),
     cities = require('../data/cities.js'),
+    _ = require('lodash'),
     bean = require('bean');
 var CityStore = {
   cities: cities,
+  initializeCities: function() {
+    _.forEach(_.values(this.cities), function(city) {
+      city.diseaseCount = 0;
+    });
+  },
   getCities: function() {
     return this.cities;
   },
   getLocation: function(city) {
     return this.cities[city].location;
   },
+  register: function() {
+    var _this = this;
+    Dispatcher.register(function(payload) {
+      var action = payload.action;
+      switch (action.actionType) {
+        case InfectionConstants.DRAW:
+          var city = action.city;
+          _this.cities[city].diseaseCount += action.diseaseCount || 1;
+          break;
+        default:
+          return true;
+      }
+      bean.fire(_this, 'changed');
+      return true;
+    });
+  }
+};
+CityStore.initializeCities();
+CityStore.register();
+module.exports = CityStore;
+
+
+//# sourceURL=/Users/ssperlin/Documents/coding/personal/pandemic/src/stores/city.js
+},{"../constants/infection.js":8,"../data/cities.js":9,"../dispatcher/dispatcher.js":10,"bean":"bean","lodash":"lodash"}],13:[function(require,module,exports){
+"use strict";
+var Dispatcher = require('../dispatcher/dispatcher.js'),
+    GameConstants = require('../constants/game.js'),
+    _ = require('lodash'),
+    bean = require('bean');
+var GameStore = {
+  turn: '',
+  turnState: GameConstants.INITIAL,
+  actionsCompleted: 0,
   register: function() {
     var _this = this;
     Dispatcher.register(function(payload) {
@@ -656,14 +767,15 @@ var CityStore = {
     });
   }
 };
-CityStore.register();
-module.exports = CityStore;
+GameStore.register();
+module.exports = GameStore;
 
 
-//# sourceURL=/Users/ssperlin/Documents/coding/personal/pandemic/src/stores/city.js
-},{"../data/cities.js":5,"../dispatcher/dispatcher.js":6,"bean":"bean"}],9:[function(require,module,exports){
+//# sourceURL=/Users/ssperlin/Documents/coding/personal/pandemic/src/stores/game.js
+},{"../constants/game.js":7,"../dispatcher/dispatcher.js":10,"bean":"bean","lodash":"lodash"}],14:[function(require,module,exports){
 "use strict";
 var Dispatcher = require('../dispatcher/dispatcher.js'),
+    InfectionConstants = require('../constants/infection.js'),
     _ = require('lodash'),
     cities = require('../data/cities.js'),
     bean = require('bean');
@@ -682,6 +794,9 @@ var InfectionStore = {
     }
     return deck;
   },
+  getTopCard: function() {
+    return this.infectionDeck[0];
+  },
   setInfectionDeck: function() {
     this.infectionDeck = this._populateInfectionDeck();
   },
@@ -690,6 +805,10 @@ var InfectionStore = {
     Dispatcher.register(function(payload) {
       var action = payload.action;
       switch (action.actionType) {
+        case InfectionConstants.DRAW:
+          var card = _this.infectionDeck.shift();
+          _this.infectionDiscardPile.push(card);
+          break;
         default:
           return true;
       }
@@ -704,4 +823,4 @@ module.exports = InfectionStore;
 
 
 //# sourceURL=/Users/ssperlin/Documents/coding/personal/pandemic/src/stores/infection.js
-},{"../data/cities.js":5,"../dispatcher/dispatcher.js":6,"bean":"bean","lodash":"lodash"}]},{},[7]);
+},{"../constants/infection.js":8,"../data/cities.js":9,"../dispatcher/dispatcher.js":10,"bean":"bean","lodash":"lodash"}]},{},[11]);

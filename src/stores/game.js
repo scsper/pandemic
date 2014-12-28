@@ -16,27 +16,6 @@ var GameStore = {
             var action = payload.action;
 
             switch (action.actionType) {
-                // case CityConstants.INITIALIZE:
-                //     var item, questions;
-
-                //     item = _.find(action.lesson.items, function(item) {
-                //         return item.type === 'quiz';
-                //     });
-                //     questions = item.quiz.questions;
-
-                //     _this.id = item.id;
-
-                //     _this.questions = questions.map(function(question) {
-                //         return {
-                //             answers: question.answers,
-                //             correctAnswer: question.correct - 1,
-                //             question: question.question,
-                //             topic: question.topic,
-                //             state: QuestionState.NOT_ANSWERED
-                //         };
-                //     });
-                //     break;
-
                 default:
                     return true;
             }

@@ -1,4 +1,5 @@
 var Dispatcher = require('../dispatcher/dispatcher.js'),
+    InfectionConstants = require('../constants/infection.js'),
     _ = require('lodash'),
     cities = require('../data/cities.js'),
     bean = require('bean');
@@ -22,6 +23,10 @@ var InfectionStore = {
         return deck;
     },
 
+    getTopCard: function() {
+        return this.infectionDeck[0];
+    },
+
     setInfectionDeck: function() {
         this.infectionDeck = this._populateInfectionDeck();
     },
@@ -34,27 +39,10 @@ var InfectionStore = {
             var action = payload.action;
 
             switch (action.actionType) {
-                // case CityConstants.INITIALIZE:
-                //     var item, questions;
-
-                //     item = _.find(action.lesson.items, function(item) {
-                //         return item.type === 'quiz';
-                //     });
-                //     questions = item.quiz.questions;
-
-                //     _this.id = item.id;
-
-                //     _this.questions = questions.map(function(question) {
-                //         return {
-                //             answers: question.answers,
-                //             correctAnswer: question.correct - 1,
-                //             question: question.question,
-                //             topic: question.topic,
-                //             state: QuestionState.NOT_ANSWERED
-                //         };
-                //     });
-                //     break;
-
+                case InfectionConstants.DRAW:
+                    var card = _this.infectionDeck.shift();
+                    _this.infectionDiscardPile.push(card);
+                    break;
                 default:
                     return true;
             }
