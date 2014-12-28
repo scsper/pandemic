@@ -107,15 +107,12 @@ City = React.createClass({displayName: 'City',
         var diseaseCount = this.props.diseaseCount,
             diseaseComponents = [],
             diseaseStyle = {
-                height: '5px',
-                width: '5px',
                 backgroundColor: this.props.color,
-                display: 'inline-block'
             };
 
         for (var i = 0; i < diseaseCount; i++) {
             debugger;
-            diseaseComponents.push(React.DOM.div({style: diseaseStyle}));
+            diseaseComponents.push(React.DOM.div({className: "disease-cube", style: diseaseStyle}));
         }
 
         return diseaseComponents;

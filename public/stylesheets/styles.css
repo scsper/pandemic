@@ -1,3 +1,10 @@
 .map {
     background-image: url("paper.jpg");
 }
+
+.disease-cube {
+    height: 5px;
+    width: 5px;
+    margin-left: 1px;
+    display: inline-block;
+}
