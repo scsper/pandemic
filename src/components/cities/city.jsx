@@ -34,7 +34,6 @@ City = React.createClass({
             };
 
         for (var i = 0; i < diseaseCount; i++) {
-            debugger;
             diseaseComponents.push(<div className="disease-cube" style={diseaseStyle} />);
         }
 
@@ -53,7 +52,7 @@ City = React.createClass({
             height: GRID_SIZE,
             width: GRID_SIZE,
             color: this.props.color,
-            position: 'absolute'
+            position: 'fixed'
         };
 
         return (
