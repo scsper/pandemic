@@ -5,6 +5,7 @@ var React = require('react'),
     _ = require('lodash'),
     CityStore = require('../../stores/city.js'),
     ResearchCenter = require('./research_center.jsx'),
+    DiseaseCubes = require('./disease_cubes.jsx'),
     Line = require('./line.jsx'),
     City;
 
@@ -25,20 +26,6 @@ City = React.createClass({
         });
 
         return lineComponents;
-    },
-
-    drawCubes: function() {
-        var diseaseCount = this.props.city.diseaseCount,
-            diseaseComponents = [],
-            diseaseStyle = {
-                backgroundColor: this.props.city.color,
-            };
-
-        for (var i = 0; i < diseaseCount; i++) {
-            diseaseComponents.push(<div className="disease-cube" style={diseaseStyle} />);
-        }
-
-        return diseaseComponents;
     },
 
     drawResearchCenter: function() {
@@ -69,7 +56,7 @@ City = React.createClass({
                 <span>{this.props.name}</span>
                 {this.drawResearchCenter()}
                 {this.drawLines()}
-                {this.drawCubes()}
+                <DiseaseCubes count={this.props.city.diseaseCount} color={this.props.city.color} />
             </div>
         );
     }
