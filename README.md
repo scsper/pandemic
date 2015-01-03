@@ -6,10 +6,10 @@ To do:
   * Ability to place research center
 * Add players
   * Hold player cards
-  * Hold role cards
 * Draw from player card deck
     * Add epidemic cards to the player card deck
     * Check for epidemics
+    * Check for holding too many cards
 * Add action rules
   * Trade cards with another player
   * Treat disease

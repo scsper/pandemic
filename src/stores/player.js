@@ -1,5 +1,8 @@
 var Dispatcher = require('../dispatcher/dispatcher.js'),
+    Roles = require('../constants/roles.js'),
     _ = require('lodash'),
+    MAX_PLAYERS = 4,
+    getRandomInteger = require('../utils').getRandomInteger,
     bean = require('bean');
 
 var PlayersStore = {
@@ -10,6 +13,20 @@ var PlayersStore = {
         role: ''
     }],
 
+    _assignRoles: function() {
+        var roles = _.keys(Roles),
+            count = 0;
+
+        while (count < MAX_PLAYERS) {
+            this.players.role = roles.splice(getRandomInteger(roles.length), 1)[0];
+            count++;
+        }
+    },
+
+    initialize: function() {
+        this._assignRoles();
+    },
+
     register: function() {
         var _this = this;
 
@@ -18,26 +35,6 @@ var PlayersStore = {
             var action = payload.action;
 
             switch (action.actionType) {
-                // case CityConstants.INITIALIZE:
-                //     var item, questions;
-
-                //     item = _.find(action.lesson.items, function(item) {
-                //         return item.type === 'quiz';
-                //     });
-                //     questions = item.quiz.questions;
-
-                //     _this.id = item.id;
-
-                //     _this.questions = questions.map(function(question) {
-                //         return {
-                //             answers: question.answers,
-                //             correctAnswer: question.correct - 1,
-                //             question: question.question,
-                //             topic: question.topic,
-                //             state: QuestionState.NOT_ANSWERED
-                //         };
-                //     });
-                //     break;
 
                 default:
                     return true;
@@ -54,6 +51,7 @@ var PlayersStore = {
     }
 };
 
+PlayerStore.initialize();
 PlayerStore.register();
 
 module.exports = PlayerStore;
