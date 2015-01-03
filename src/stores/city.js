@@ -10,7 +10,10 @@ var CityStore = {
     initializeCities: function() {
         _.forEach(_.values(this.cities), function(city) {
             city.diseaseCount = 0;
+            city.hasResearchCenter = false;
         });
+
+        cities['Atlanta'].hasResearchCenter = true;
     },
 
     getCities: function() {
