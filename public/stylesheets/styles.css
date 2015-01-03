@@ -8,3 +8,11 @@
     margin-left: 1px;
     display: inline-block;
 }
+
+.research-center {
+    height: 7px;
+    width: 7px;
+    margin-left: 1px;
+    display: inline-block;
+    background-color: brown;
+}

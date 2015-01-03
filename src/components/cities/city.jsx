@@ -9,9 +9,9 @@ var React = require('react'),
 
 City = React.createClass({
     drawLines: function() {
-        var neighbors = this.props.neighbors,
+        var neighbors = this.props.city.neighbors,
             lineComponents = [],
-            cityLocation = this.props.location,
+            cityLocation = this.props.city.location,
             name = this.props.name;
 
         _.forEach(neighbors, function(neighbor) {
@@ -27,10 +27,10 @@ City = React.createClass({
     },
 
     drawCubes: function() {
-        var diseaseCount = this.props.diseaseCount,
+        var diseaseCount = this.props.city.diseaseCount,
             diseaseComponents = [],
             diseaseStyle = {
-                backgroundColor: this.props.color,
+                backgroundColor: this.props.city.color,
             };
 
         for (var i = 0; i < diseaseCount; i++) {
@@ -40,8 +40,16 @@ City = React.createClass({
         return diseaseComponents;
     },
 
+    drawResearchCenter: function() {
+        if (this.props.city.hasResearchCenter) {
+            return <div className="research-center" />
+        }
+
+        return null;
+    },
+
     render: function() {
-        var location = this.props.location,
+        var location = this.props.city.location,
             x = location.x * GRID_SIZE,
             y = location.y * GRID_SIZE,
             locationStyle;
@@ -51,13 +59,14 @@ City = React.createClass({
             left: x + 'px',
             height: GRID_SIZE,
             width: GRID_SIZE,
-            color: this.props.color,
+            color: this.props.city.color,
             position: 'fixed'
         };
 
         return (
             <div style={locationStyle}>
                 <span>{this.props.name}</span>
+                {this.drawResearchCenter()}
                 {this.drawLines()}
                 {this.drawCubes()}
             </div>

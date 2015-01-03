@@ -17,11 +17,8 @@ Map = React.createClass({
                 city = cities[cityName];
 
                 cityComponents.push(<City
-                    neighbors={city.neighbors}
-                    color={city.color}
-                    location={city.location}
+                    city={city}
                     name={cityName}
-                    diseaseCount={city.diseaseCount}
                 />);
             }
         }
