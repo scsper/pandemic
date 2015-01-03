@@ -3,7 +3,6 @@ pandemic
 
 To do:
 * Add research centers
-  * Initial research center in Atlanta
   * Ability to place research center
 * Add players
   * Hold player cards

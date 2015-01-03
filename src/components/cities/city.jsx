@@ -4,6 +4,7 @@ var React = require('react'),
     GRID_SIZE = 25,
     _ = require('lodash'),
     CityStore = require('../../stores/city.js'),
+    ResearchCenter = require('./research_center.jsx'),
     Line = require('./line.jsx'),
     City;
 
@@ -42,10 +43,10 @@ City = React.createClass({
 
     drawResearchCenter: function() {
         if (this.props.city.hasResearchCenter) {
-            return <div className="research-center" />
+            return <ResearchCenter />
+        } else {
+            return null;
         }
-
-        return null;
     },
 
     render: function() {
