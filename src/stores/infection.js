@@ -27,6 +27,11 @@ var InfectionStore = {
         return this.infectionDeck[0];
     },
 
+    draw: function() {
+        var card = this.infectionDeck.shift();
+        this.infectionDiscardPile.push(card);
+    },
+
     setInfectionDeck: function() {
         this.infectionDeck = this._populateInfectionDeck();
     },
@@ -40,8 +45,7 @@ var InfectionStore = {
 
             switch (action.actionType) {
                 case InfectionConstants.DRAW:
-                    var card = _this.infectionDeck.shift();
-                    _this.infectionDiscardPile.push(card);
+                    _this.draw();
                     break;
                 default:
                     return true;

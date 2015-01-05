@@ -11,7 +11,12 @@ var PlayerDeckStore = {
         var cards = _.keys(cities),
             deck = [],
             length = cards.length,
-            randomIdx;
+            randomIdx,
+            EPIDEMIC_COUNT = 4; // hardcoded to easy, for now
+
+        for (var i = 0; i < EPIDEMIC_COUNT; i++) {
+            cards.push('Epidemic');
+        }
 
         for (var i = 0; i < length; i++) {
             randomIdx = Math.floor((Math.random() * cards.length - 1) + 1);
@@ -25,6 +30,11 @@ var PlayerDeckStore = {
         this.playerDeck = this._populatePlayerDeck();
     },
 
+    draw: function() {
+        var card = this.playerDeck.shift();
+        this.playerDiscardPile.push(card);
+    },
+
     register: function() {
         var _this = this;
 
@@ -33,26 +43,9 @@ var PlayerDeckStore = {
             var action = payload.action;
 
             switch (action.actionType) {
-                // case CityConstants.INITIALIZE:
-                //     var item, questions;
-
-                //     item = _.find(action.lesson.items, function(item) {
-                //         return item.type === 'quiz';
-                //     });
-                //     questions = item.quiz.questions;
-
-                //     _this.id = item.id;
-
-                //     _this.questions = questions.map(function(question) {
-                //         return {
-                //             answers: question.answers,
-                //             correctAnswer: question.correct - 1,
-                //             question: question.question,
-                //             topic: question.topic,
-                //             state: QuestionState.NOT_ANSWERED
-                //         };
-                //     });
-                //     break;
+                case InfectionConstants.DRAW:
+                    _this.draw();
+                    break;
 
                 default:
                     return true;
